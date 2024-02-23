@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: service-user
+          uri: lb://service-user
+          order: 1
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=2
+        - id: service-order
+          uri: lb://service-order
+          order: 2
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - StripPrefix=2
+      predicate:
+        weight:
+          enabled: false
+
+debug: true
+
+
+
+
+
+
